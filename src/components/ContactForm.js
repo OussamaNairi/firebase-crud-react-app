@@ -7,6 +7,17 @@ const initialFieldValues = {
     address:''
 }
 var [values,setValues] = useState(initialFieldValues)
+useEffect(()=>{
+    if(props.currentId == '')
+    setValues({
+        ...initialFieldValues
+    })
+    else 
+    setValues({
+        ...props.contactObjects[props.currentId]
+    })
+
+},[props.currentId,props.contactObjects])
 const handleInputeChange= e => {
     var { name,value} = e.target
     setValues({
@@ -51,7 +62,7 @@ const handleFormSubmit = e=> {
             <textarea className="form-control" placeholder="Address" name="address" value={values.address} onChange={handleInputeChange}/>
             </div>
             <div className="form-group">
-            <input type="submit"  value="Save" className="btn btn-primary btn-block"/>
+            <input type="submit"  value={props.currentId==''?"Save":"Update"} className="btn btn-primary btn-block"/>
             </div>
             
         </form>
